@@ -1,4 +1,355 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  /* Primary Colors */
+  --primary-50: #e3f2fd;
+  --primary-100: #bbdefb;
+  --primary-200: #90caf9;
+  --primary-300: #64b5f6;
+  --primary-400: #42a5f5;
+  --primary-500: #2196f3;
+  --primary-600: #1e88e5;
+  --primary-700: #1976d2;
+  --primary-800: #1565c0;
+  --primary-900: #0d47a1;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  /* Secondary Colors */
+  --secondary-500: #ff9800;
+  --secondary-700: #f57c00;
+
+  /* Surface Colors */
+  --surface: #ffffff;
+  --surface-variant: #f5f5f5;
+  --background: #fafafa;
+  --error: #f44336;
+  --success: #4caf50;
+  --warning: #ff9800;
+
+  /* Text Colors */
+  --on-surface: #212121;
+  --on-surface-variant: #757575;
+  --on-primary: #ffffff;
+
+  /* Elevations */
+  --elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --elevation-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  --elevation-3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  --elevation-4: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-standard: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--on-surface);
+  background-color: var(--background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Scale */
+.headline-1 { font-size: 96px; font-weight: 300; line-height: 1.17; }
+.headline-2 { font-size: 60px; font-weight: 300; line-height: 1.2; }
+.headline-3 { font-size: 48px; font-weight: 400; line-height: 1.17; }
+.headline-4 { font-size: 34px; font-weight: 400; line-height: 1.18; }
+.headline-5 { font-size: 24px; font-weight: 400; line-height: 1.33; }
+.headline-6 { font-size: 20px; font-weight: 500; line-height: 1.6; }
+.subtitle-1 { font-size: 16px; font-weight: 400; line-height: 1.75; }
+.subtitle-2 { font-size: 14px; font-weight: 500; line-height: 1.57; }
+.body-1 { font-size: 16px; font-weight: 400; line-height: 1.5; }
+.body-2 { font-size: 14px; font-weight: 400; line-height: 1.43; }
+.caption { font-size: 12px; font-weight: 400; line-height: 1.33; }
+.overline { font-size: 10px; font-weight: 400; line-height: 2.66; text-transform: uppercase; }
+
+/* Material Design Components */
+
+/* Cards */
+.mat-card {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--elevation-1);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  transition: box-shadow var(--transition-standard);
+}
+
+.mat-card:hover {
+  box-shadow: var(--elevation-2);
+}
+
+.mat-card-elevated {
+  box-shadow: var(--elevation-3);
+}
+
+/* Buttons */
+.mat-button, .mat-raised-button, .mat-fab {
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 36px;
+  padding: 0 16px;
+  min-width: 64px;
+  transition: all var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: 0.0892857143em;
+  position: relative;
+  overflow: hidden;
+}
+
+.mat-button {
+  background: transparent;
+  color: var(--primary-700);
+}
+
+.mat-button:hover {
+  background: rgba(33, 150, 243, 0.04);
+}
+
+.mat-raised-button {
+  background: var(--primary-700);
+  color: var(--on-primary);
+  box-shadow: var(--elevation-1);
+}
+
+.mat-raised-button:hover {
+  box-shadow: var(--elevation-2);
+}
+
+.mat-raised-button:disabled {
+  background: rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.26);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.mat-fab {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--secondary-500);
+  color: var(--on-primary);
+  box-shadow: var(--elevation-3);
+  padding: 0;
+  min-width: auto;
+}
+
+/* Input Fields */
+.mat-form-field {
+  position: relative;
+  margin-bottom: var(--spacing-lg);
+}
+
+.mat-input {
+  width: 100%;
+  padding: 12px 16px 8px 16px;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  background: transparent;
+  transition: border-color var(--transition-fast);
+}
+
+.mat-input:focus {
+  outline: none;
+  border-color: var(--primary-700);
+  border-width: 2px;
+  padding: 11px 15px 7px 15px;
+}
+
+.mat-input:focus + .mat-label,
+.mat-input:not(:placeholder-shown) + .mat-label {
+  transform: translateY(-20px) scale(0.75);
+  color: var(--primary-700);
+}
+
+.mat-label {
+  position: absolute;
+  left: 16px;
+  top: 12px;
+  color: var(--on-surface-variant);
+  transition: all var(--transition-fast);
+  pointer-events: none;
+  transform-origin: left top;
+}
+
+.mat-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  background: var(--surface);
+  transition: border-color var(--transition-fast);
+}
+
+.mat-select:focus {
+  outline: none;
+  border-color: var(--primary-700);
+  border-width: 2px;
+}
+
+/* Tables */
+.mat-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--elevation-1);
+}
+
+.mat-table th,
+.mat-table td {
+  padding: var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.mat-table th {
+  background: var(--surface-variant);
+  font-weight: 500;
+  color: var(--on-surface-variant);
+}
+
+.mat-table tr:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Lists */
+.mat-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mat-list-item {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  transition: background-color var(--transition-fast);
+}
+
+.mat-list-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Chips */
+.mat-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  height: 32px;
+  border-radius: 16px;
+  background: var(--surface-variant);
+  color: var(--on-surface);
+  font-size: 13px;
+  margin: 4px;
+  transition: all var(--transition-fast);
+}
+
+.mat-chip:hover {
+  box-shadow: var(--elevation-1);
+}
+
+/* Progress indicators */
+.mat-progress-linear {
+  height: 4px;
+  background: var(--surface-variant);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.mat-progress-bar {
+  height: 100%;
+  background: var(--primary-700);
+  border-radius: 2px;
+  animation: progress 2s ease-in-out infinite;
+}
+
+@keyframes progress {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.m-0 { margin: 0; }
+.m-1 { margin: var(--spacing-xs); }
+.m-2 { margin: var(--spacing-sm); }
+.m-3 { margin: var(--spacing-md); }
+.m-4 { margin: var(--spacing-lg); }
+
+.p-0 { padding: 0; }
+.p-1 { padding: var(--spacing-xs); }
+.p-2 { padding: var(--spacing-sm); }
+.p-3 { padding: var(--spacing-md); }
+.p-4 { padding: var(--spacing-lg); }
+
+.d-flex { display: flex; }
+.d-block { display: block; }
+.d-none { display: none; }
+
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.align-center { align-items: center; }
+
+.gap-1 { gap: var(--spacing-xs); }
+.gap-2 { gap: var(--spacing-sm); }
+.gap-3 { gap: var(--spacing-md); }
+.gap-4 { gap: var(--spacing-lg); }
+
+/* Responsive Grid */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -8px;
+}
+
+.col {
+  flex: 1;
+  padding: 0 8px;
+}
+
+@media (max-width: 768px) {
+  .col {
+    flex: 100%;
+  }
+}

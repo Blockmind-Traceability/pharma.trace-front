@@ -1,31 +1,47 @@
 .login-container {
-  width: 300px;
-  margin: 50px auto;
-  background: #f8f8f8;
-  padding: 20px;
-  border-radius: 8px;
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
 }
 
-.login-container h2 {
-  text-align: center;
-}
-
-.login-container input {
+.login-container .mat-card {
   width: 100%;
-  margin: 10px 0;
-  padding: 8px;
-  box-sizing: border-box;
+  max-width: 400px;
+  padding: var(--spacing-xxl);
 }
 
-.login-container button {
+.login-header {
+  margin-bottom: var(--spacing-xl);
+}
+
+.login-icon {
+  font-size: 48px;
+  color: var(--primary-700);
+  margin-bottom: var(--spacing-md);
+}
+
+.login-form {
+  margin-bottom: var(--spacing-lg);
+}
+
+.login-button {
   width: 100%;
-  padding: 10px;
-  background: #1976d2;
-  color: white;
-  border: none;
-  cursor: pointer;
+  height: 48px;
+  margin-top: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
 }
 
-.login-container button:disabled {
-  background: #a7a7a7;
+.link-primary {
+  color: var(--primary-700);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link-primary:hover {
+  text-decoration: underline;
 }

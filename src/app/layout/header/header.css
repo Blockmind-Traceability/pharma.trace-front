@@ -1,55 +1,120 @@
 .header {
-  background-color: #1976d2;
-  color: #fff;
-  padding: 10px 20px;
+  background: var(--surface);
+  box-shadow: var(--elevation-2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  margin-bottom: 0;
 }
 
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
+  padding: var(--spacing-md) var(--spacing-lg);
+  min-height: 64px;
 }
 
-.nav .logo {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #fff;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--primary-700);
   text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.logo:hover {
+  color: var(--primary-800);
+}
+
+.logo .material-icons {
+  font-size: 28px;
 }
 
 .nav-links {
   display: flex;
-  gap: 15px;
+  gap: var(--spacing-xs);
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
-.nav-links li a {
-  color: #fff;
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--on-surface);
   text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
   font-weight: 500;
 }
 
-.nav-links li a:hover {
-  text-decoration: underline;
+.nav-link:hover {
+  background: var(--primary-50);
+  color: var(--primary-700);
+}
+
+.nav-link .material-icons {
+  font-size: 18px;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
 }
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--spacing-md);
 }
 
-.user-info button {
-  background-color: #d32f2f;
-  color: #fff;
-  border: none;
-  padding: 6px 12px;
-  cursor: pointer;
+.user-avatar .material-icons {
+  font-size: 32px;
+  color: var(--on-surface-variant);
 }
 
-.user-info button:hover {
-  background-color: #9a0007;
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  color: var(--on-surface);
+}
+
+.user-role {
+  color: var(--on-surface-variant);
+  text-transform: uppercase;
+}
+
+.logout-btn {
+  color: var(--error);
+}
+
+.logout-btn .material-icons {
+  font-size: 18px;
+  margin-right: var(--spacing-xs);
+}
+
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .user-info {
+    order: -1;
+  }
 }

@@ -1,30 +1,63 @@
-<header class="header">
-  <nav class="nav">
-    <a routerLink="/" class="logo">PharmaTrace</a>
+<header class="header mat-card-elevated">
+  <nav class="nav container">
+    <a routerLink="/" class="logo">
+      <span class="material-icons">local_pharmacy</span>
+      PharmaTrace
+    </a>
 
     @if(isLoggedIn){
-      <ul class="nav-links" >
-        <li><a routerLink="/register-lab">Registrar Laboratorio</a></li>
-        <li><a routerLink="/upload-documents">Documentos</a></li>
-        <li><a routerLink="/manage-product-units">Productos</a></li>
-        <li><a routerLink="/manage-batches">Lotes</a></li>
-        <li><a routerLink="/register-event">Registrar Evento</a></li>
-        <li><a routerLink="/view-alerts">Alertas</a></li>
-        <li><a routerLink="/trace-product">Trazabilidad</a></li>
+      <ul class="nav-links">
+        <li><a routerLink="/register-lab" class="nav-link">
+          <span class="material-icons">domain</span>
+          Laboratorio
+        </a></li>
+        <li><a routerLink="/upload-documents" class="nav-link">
+          <span class="material-icons">upload_file</span>
+          Documentos
+        </a></li>
+        <li><a routerLink="/manage-product-units" class="nav-link">
+          <span class="material-icons">inventory</span>
+          Productos
+        </a></li>
+        <li><a routerLink="/manage-batches" class="nav-link">
+          <span class="material-icons">batch_prediction</span>
+          Lotes
+        </a></li>
+        <li><a routerLink="/register-event" class="nav-link">
+          <span class="material-icons">event_note</span>
+          Eventos
+        </a></li>
+        <li><a routerLink="/view-alerts" class="nav-link">
+          <span class="material-icons">notifications</span>
+          Alertas
+        </a></li>
+        <li><a routerLink="/trace-product" class="nav-link">
+          <span class="material-icons">track_changes</span>
+          Trazabilidad
+        </a></li>
       </ul>
     }
 
     @if(!isLoggedIn){
-      <ul class="nav-links" >
-        <li><a routerLink="/login">Login</a></li>
-        <li><a routerLink="/register">Registro</a></li>
-      </ul>
+      <div class="auth-buttons">
+        <a routerLink="/login" class="mat-button">Iniciar Sesión</a>
+        <a routerLink="/register" class="mat-raised-button">Registrarse</a>
+      </div>
     }
 
     @if(isLoggedIn){
-      <div class="user-info" >
-        <span>👤 {{ username }} ({{ role }})</span>
-        <button (click)="logout()">Cerrar sesión</button>
+      <div class="user-info">
+        <div class="user-avatar">
+          <span class="material-icons">account_circle</span>
+        </div>
+        <div class="user-details">
+          <span class="user-name subtitle-2">{{ username }}</span>
+          <span class="user-role caption">{{ role }}</span>
+        </div>
+        <button class="mat-button logout-btn" (click)="logout()">
+          <span class="material-icons">logout</span>
+          Salir
+        </button>
       </div>
     }
   </nav>
