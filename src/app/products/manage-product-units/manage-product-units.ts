@@ -13,11 +13,25 @@ import {FormsModule} from '@angular/forms';
 })
 export class ManageProductUnits implements OnInit {
   baseUrl = 'https://pharma-traceability-backend-production.up.railway.app';
+
   products: any[] = [];
   loading = false;
 
   selectedProduct: any = null;
   seriesList: string[] = [];
+
+  productData = {
+    name: '',
+    description: '',
+    registration_number: '',
+    composition: '',
+    presentation: '',
+    manufacturer: '',
+    country_of_origin: '',
+    storage_conditions: '',
+    packaging: '',
+    expiration_date: ''
+  };
 
   unitData = {
     product: null,
@@ -43,12 +57,48 @@ export class ManageProductUnits implements OnInit {
           console.error('❌ Error al cargar productos:', err);
           if (typeof window !== 'undefined') {
             alert('Error al cargar los productos.');
-          } else {
-            console.log('Error al cargar los productos.');
           }
           this.loading = false;
         }
       });
+  }
+
+  createProduct(): void {
+    this.http.post<any>(
+      `${this.baseUrl}/api/v1/products/`,
+      this.productData
+    )
+      .subscribe({
+        next: (res) => {
+          console.log('✅ Producto creado:', res);
+          if (typeof window !== 'undefined') {
+            alert('Producto creado exitosamente.');
+          }
+          this.resetProductForm();
+          this.loadProducts();
+        },
+        error: (err) => {
+          console.error('❌ Error al crear producto:', err);
+          if (typeof window !== 'undefined') {
+            alert('Error al crear el producto.');
+          }
+        }
+      });
+  }
+
+  resetProductForm(): void {
+    this.productData = {
+      name: '',
+      description: '',
+      registration_number: '',
+      composition: '',
+      presentation: '',
+      manufacturer: '',
+      country_of_origin: '',
+      storage_conditions: '',
+      packaging: '',
+      expiration_date: ''
+    };
   }
 
   onProductClick(product: any): void {
@@ -57,7 +107,7 @@ export class ManageProductUnits implements OnInit {
   }
 
   loadSeriesForProduct(productId: number): void {
-    this.seriesList = []; // limpiar antes de cargar nuevas
+    this.seriesList = [];
     this.http.get<any>(`${this.baseUrl}/api/v1/products/${productId}/unit-series/`)
       .subscribe({
         next: (res) => {
@@ -68,8 +118,6 @@ export class ManageProductUnits implements OnInit {
           console.error(`❌ Error al obtener series del producto ${productId}:`, err);
           if (typeof window !== 'undefined') {
             alert('Error al cargar las series del producto.');
-          } else {
-            console.log('Error al cargar las series del producto.');
           }
         }
       });
@@ -79,8 +127,6 @@ export class ManageProductUnits implements OnInit {
     if (!this.unitData.product || !this.unitData.serial_number) {
       if (typeof window !== 'undefined') {
         alert('Debe completar todos los campos.');
-      } else {
-        console.log('Debe completar todos los campos.');
       }
       return;
     }
@@ -98,7 +144,6 @@ export class ManageProductUnits implements OnInit {
           this.unitData.serial_number = '';
           this.unitData.product = null;
 
-          // Si estamos viendo ese producto, recargar series
           if (this.selectedProduct?.id === res.product) {
             this.loadSeriesForProduct(res.product);
           }
@@ -107,10 +152,11 @@ export class ManageProductUnits implements OnInit {
           console.error('❌ Error al registrar unidad:', err);
           if (typeof window !== 'undefined') {
             alert('Error al registrar la unidad.');
-          } else {
-            console.log('Error al registrar la unidad.');
           }
         }
       });
   }
 }
+
+
+

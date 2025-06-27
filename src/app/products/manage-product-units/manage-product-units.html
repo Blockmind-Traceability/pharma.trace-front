@@ -1,10 +1,68 @@
 <div class="product-units-container">
-  <h2>Productos del Laboratorio</h2>
+  <h2>Gestión de Productos y Unidades</h2>
+
+  <h3>Registrar Producto General</h3>
+  <form (ngSubmit)="createProduct()" #productForm="ngForm" class="product-form">
+    <div class="form-group">
+      <label>Nombre:</label>
+      <input type="text" [(ngModel)]="productData.name" name="name" required />
+    </div>
+
+    <div class="form-group">
+      <label>Descripción:</label>
+      <input type="text" [(ngModel)]="productData.description" name="description" required />
+    </div>
+
+    <div class="form-group">
+      <label>Número de Registro:</label>
+      <input type="text" [(ngModel)]="productData.registration_number" name="registration_number" required />
+    </div>
+
+    <div class="form-group">
+      <label>Composición:</label>
+      <input type="text" [(ngModel)]="productData.composition" name="composition" required />
+    </div>
+
+    <div class="form-group">
+      <label>Presentación:</label>
+      <input type="text" [(ngModel)]="productData.presentation" name="presentation" required />
+    </div>
+
+    <div class="form-group">
+      <label>Fabricante:</label>
+      <input type="text" [(ngModel)]="productData.manufacturer" name="manufacturer" required />
+    </div>
+
+    <div class="form-group">
+      <label>País de Origen:</label>
+      <input type="text" [(ngModel)]="productData.country_of_origin" name="country_of_origin" required />
+    </div>
+
+    <div class="form-group">
+      <label>Condiciones de Almacenamiento:</label>
+      <input type="text" [(ngModel)]="productData.storage_conditions" name="storage_conditions" required />
+    </div>
+
+    <div class="form-group">
+      <label>Empaque:</label>
+      <input type="text" [(ngModel)]="productData.packaging" name="packaging" required />
+    </div>
+
+    <div class="form-group">
+      <label>Fecha de Vencimiento:</label>
+      <input type="date" [(ngModel)]="productData.expiration_date" name="expiration_date" required />
+    </div>
+
+    <button type="submit" [disabled]="productForm.invalid">Registrar Producto</button>
+  </form>
+
+  <hr />
+
+  <h3>Productos del Laboratorio</h3>
 
   @if(loading){
     <div>Cargando productos...</div>
   }
-
 
   @if(!loading && products.length > 0){
     <div class="products-grid">
@@ -13,7 +71,7 @@
         <tr>
           <th>ID</th>
           <th>Nombre</th>
-          <th>Registro Sanitario</th>
+          <th>Registro</th>
           <th>Presentación</th>
           <th>Acciones</th>
         </tr>
@@ -36,25 +94,21 @@
       </table>
 
       @if(selectedProduct){
-      <div class="series-panel">
-        <h3>Series de {{ selectedProduct.name }}</h3>
+        <div class="series-panel">
+          <h3>Series de {{ selectedProduct.name }}</h3>
 
-        @if(seriesList.length > 0){
-        <ul>
-          @for(serie of seriesList; track serie){
-          <li>
-            {{ serie }}
-          </li>
+          @if(seriesList.length > 0){
+            <ul>
+              @for(serie of seriesList; track serie){
+                <li>{{ serie }}</li>
+              }
+            </ul>
           }
-        </ul>
-        }
 
-        @if(seriesList.length === 0){
-          <p>
-            No hay series registradas para este producto.
-          </p>
-        }
-      </div>
+          @if(seriesList.length === 0){
+            <p>No hay series registradas para este producto.</p>
+          }
+        </div>
       }
     </div>
   }
@@ -65,24 +119,25 @@
     </div>
   }
 
-  <hr>
+  <hr />
 
   <h3>Registrar Unidad de Producto</h3>
+  <form (ngSubmit)="onSubmit()" #unitForm="ngForm" class="unit-form">
+    <div class="form-group">
+      <label>Producto:</label>
+      <select name="product" [(ngModel)]="unitData.product" required>
+        <option [ngValue]="null" disabled selected>Seleccione un producto</option>
+        @for (p of products; track p){
+          <option [value]="p.id">{{ p.name }}</option>
+        }
+      </select>
+    </div>
 
-  <form (ngSubmit)="onSubmit()" #unitForm="ngForm">
-    <label>Producto:</label>
-    <select name="product" [(ngModel)]="unitData.product" required>
-      <option [ngValue]="null" disabled selected>Seleccione un producto</option>
-      @for(p of products; track p){
-        <option [value]="p.id">{{ p.name }}</option>
-      }
-
-    </select>
-
-    <label>Serie (Serial Number):</label>
-    <input type="text" name="serial_number" [(ngModel)]="unitData.serial_number" required />
+    <div class="form-group">
+      <label>Serie (Serial Number):</label>
+      <input type="text" name="serial_number" [(ngModel)]="unitData.serial_number" required />
+    </div>
 
     <button type="submit" [disabled]="unitForm.invalid">Registrar Unidad</button>
   </form>
 </div>
-
