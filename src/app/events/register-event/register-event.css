@@ -1,0 +1,42 @@
+.register-event-container {
+  width: 600px;
+  margin: 40px auto;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.register-event-container h2,
+.register-event-container h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.register-event-container label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+}
+
+.register-event-container input,
+.register-event-container select,
+.register-event-container textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.register-event-container button {
+  margin-top: 20px;
+  background-color: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.register-event-container button:disabled {
+  background: #aaa;
+}

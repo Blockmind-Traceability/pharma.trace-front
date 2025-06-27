@@ -1,0 +1,90 @@
+<div class="manage-batches-container">
+  <h2>Gestión de Lotes</h2>
+
+  @if(loading){
+    <div>Cargando lotes...</div>
+  }
+
+  @if(!loading && batches.length > 0){
+    <div class="batches-grid" >
+      <table class="batches-table">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Origen</th>
+          <th>Destino</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        @for(batch of batches; track batch){
+        <tr>
+          <td>{{ batch.id }}</td>
+          <td>{{ batch.origin }}</td>
+          <td>{{ batch.destination }}</td>
+          <td>{{ batch.created_at}}</td>
+          <td>
+            <button (click)="selectBatch(batch)">Ver Series</button>
+          </td>
+        </tr>
+        }
+        </tbody>
+      </table>
+
+      @if(selectedBatch){
+      <div class="series-panel">
+        <h3>Series del Lote #{{ selectedBatch.id }}</h3>
+        @if(selectedBatch.series.length > 0){
+          <ul>
+            @for(serie of selectedBatch.series; track serie){
+              <li>
+                <strong>{{ serie.serie_code }}</strong>
+                <span> (Producto: {{ serie.product.name }})</span>
+              </li>
+            }
+          </ul>
+        }
+        @if(selectedBatch.series.length === 0){
+        <p>
+          Este lote no tiene series asociadas.
+        </p>
+        }
+      </div>
+      }
+    </div>
+  }
+
+  @if(!loading && batches.length === 0){
+    <div>
+      <p>No se encontraron lotes registrados.</p>
+    </div>
+  }
+
+  <hr />
+
+  <h3>Registrar Nuevo Lote</h3>
+  <form (ngSubmit)="createBatch()" #batchForm="ngForm">
+    <label>Origen:</label>
+    <input type="text" [(ngModel)]="newBatch.origin" name="origin" required />
+
+    <label>Destino:</label>
+    <input type="text" [(ngModel)]="newBatch.destination" name="destination" required />
+
+    <label>Series (Códigos de Serie):</label>
+    <div class="series-inputs">
+      @for(s of newBatch.series; track s;let i = $index){
+      <div>
+        <input type="text" [(ngModel)]="newBatch.series[i]" [name]="'serie' + i" required />
+        @if(newBatch.series.length > 1){
+        <button type="button" (click)="removeSerieField(i)">Eliminar</button>
+        }
+      </div>
+      }
+
+      <button type="button" (click)="addSerieField()">+ Agregar otra serie</button>
+    </div>
+
+    <button type="submit" [disabled]="batchForm.invalid">Crear Lote</button>
+  </form>
+</div>

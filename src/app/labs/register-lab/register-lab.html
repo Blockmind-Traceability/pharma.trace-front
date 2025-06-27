@@ -1,0 +1,43 @@
+
+@if(formVisible){
+  <div class="register-lab-container">
+    <h2>Registro de Laboratorio</h2>
+    <form (ngSubmit)="onSubmit()" #labForm="ngForm">
+      <label>Razón Social:</label>
+      <input type="text" name="business_name" [(ngModel)]="lab.business_name" required />
+
+      <label>Nombre Comercial:</label>
+      <input type="text" name="nombre_comercial" [(ngModel)]="lab.nombre_comercial" required />
+
+      <label>RUC:</label>
+      <input type="text" name="ruc" [(ngModel)]="lab.ruc" required />
+
+      <label>Dirección:</label>
+      <input type="text" name="address" [(ngModel)]="lab.address" required />
+
+      <label>Email:</label>
+      <input type="email" name="email" [(ngModel)]="lab.email" required />
+
+      <label>Teléfono:</label>
+      <input type="text" name="phone" [(ngModel)]="lab.phone" required />
+
+      <label>Representante Legal:</label>
+      <input type="text" name="representante_legal" [(ngModel)]="lab.representante_legal" required />
+
+      <label>DNI Representante:</label>
+      <input type="text" name="dni_representante" [(ngModel)]="lab.dni_representante" required />
+
+      <label>Tipo de Productos:</label>
+      <input type="text" name="tipo_productos" [(ngModel)]="lab.tipo_productos" required />
+
+      <label>Mercado Objetivo:</label>
+      <select name="mercado_objetivo" [(ngModel)]="lab.mercado_objetivo" required>
+        <option value="Nacional">Nacional</option>
+        <option value="Internacional">Internacional</option>
+        <option value="Nacional e Internacional">Nacional e Internacional</option>
+      </select>
+
+      <button type="submit" [disabled]="labForm.invalid">Registrar Laboratorio</button>
+    </form>
+  </div>
+}

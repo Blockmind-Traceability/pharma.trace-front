@@ -1,0 +1,51 @@
+<div class="view-alerts-container">
+  <h2>Gestión de Alertas</h2>
+
+  <div class="button-group">
+    <button (click)="loadAllAlerts()">Ver Todas las Alertas</button>
+    <button (click)="loadLabAlerts()">Ver Alertas del Laboratorio Actual</button>
+  </div>
+
+  @if(loading){
+    <div>
+      Cargando alertas...
+    </div>
+  }
+
+  @if (!loading && alerts.length > 0){
+    <table>
+      <thead>
+      <tr>
+        <th>Serial del Producto</th>
+        <th>ID del Laboratorio</th>
+        <th>Scores Sospechosos</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      @for (alert of alerts; track alert){
+      <tr >
+        <td>{{ alert.product_serial }}</td>
+        <td>{{ alert.lab_id }}</td>
+        <td>
+          <ul>
+            @for(score of alert.suspicious_scores; track score){
+              <li>
+                {{ score }}
+              </li>
+            }
+
+          </ul>
+        </td>
+      </tr>
+      }
+      </tbody>
+    </table>
+  }
+
+  @if(!loading && alerts.length === 0){
+  <div>
+    <p>No hay alertas disponibles.</p>
+  </div>
+  }
+</div>

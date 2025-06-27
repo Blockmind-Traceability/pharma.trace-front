@@ -1,0 +1,33 @@
+<div class="upload-docs-container">
+  <h2>Documentos del Laboratorio</h2>
+
+  <form (ngSubmit)="onSubmit()" #uploadForm="ngForm">
+    <label for="file">Seleccionar archivo:</label>
+    <input type="file" id="file" (change)="onFileSelected($event)" required />
+
+    <button type="submit" [disabled]="!selectedFile">Subir Archivo</button>
+  </form>
+
+  <hr />
+
+  <h3>Archivos Subidos</h3>
+
+  @if (uploadedFiles.length === 0){
+    <div>
+      <p>No hay archivos registrados para este laboratorio.</p>
+    </div>
+  }
+
+  @if (uploadedFiles.length > 0){
+    <ul>
+      @for (file of uploadedFiles; track file){
+        <li>
+          📄 {{ file.name }}
+          <button (click)="downloadFile(file.file)">Descargar</button>
+          <button (click)="deleteFile(file.id)">Eliminar</button>
+        </li>
+      }
+    </ul>
+  }
+
+</div>

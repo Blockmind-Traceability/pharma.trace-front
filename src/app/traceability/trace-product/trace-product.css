@@ -1,0 +1,60 @@
+.traceability-container {
+  width: 700px;
+  margin: 40px auto;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.traceability-container h2 {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+form input {
+  flex: 1;
+  padding: 8px;
+}
+
+form button {
+  background-color: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.timeline {
+  border-left: 3px solid #1976d2;
+  margin-top: 20px;
+  padding-left: 20px;
+}
+
+.timeline-item {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.timeline-item::before {
+  content: '🔵';
+  position: absolute;
+  left: -30px;
+  top: 0;
+  font-size: 20px;
+}
+
+.timeline-item h3 {
+  margin: 0;
+  color: #1976d2;
+}
+
+.timeline-item .arrow {
+  font-size: 16px;
+  margin: 5px 0;
+  color: #333;
+}

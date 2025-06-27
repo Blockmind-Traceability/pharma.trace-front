@@ -1,0 +1,40 @@
+.register-lab-container {
+  width: 400px;
+  margin: 40px auto;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.register-lab-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.register-lab-container label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.register-lab-container input,
+.register-lab-container select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.register-lab-container button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.register-lab-container button:disabled {
+  background: #aaa;
+}

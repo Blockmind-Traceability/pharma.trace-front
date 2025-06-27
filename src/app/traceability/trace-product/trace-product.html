@@ -1,0 +1,42 @@
+<div class="traceability-container">
+  <h2>Trazabilidad del Producto</h2>
+
+  <form (ngSubmit)="onSearch()" #traceForm="ngForm">
+    <label>Serie del Producto:</label>
+    <input type="text" [(ngModel)]="serialInput" name="serialInput" required />
+    <button type="submit" [disabled]="traceForm.invalid || loading">Buscar Trazabilidad</button>
+  </form>
+
+  @if(loading){
+  <div>
+    Cargando trazabilidad...
+  </div>
+  }
+
+  @if(notFound && !loading){
+  <div>
+    <p>No se encontró trazabilidad para esta serie.</p>
+  </div>
+  }
+
+  @if(traceData.length > 0 && !loading){
+  <div class="timeline">
+    @for(event of traceData; track event){
+    <div class="timeline-item">
+      <h3>{{ event.eventType }}</h3>
+      <p class="arrow">
+        {{ event.origin }} ➡ {{ event.destination }}
+      </p>
+      <p><strong>Responsable:</strong> {{ event.responsible.name }} ({{ event.responsible.role }})</p>
+      <p><strong>Ubicación actual:</strong> {{ event.currentLocation }}</p>
+      <p><strong>Fecha:</strong> {{ event.eventDate }}</p>
+      @if(event.notes){
+        <p><strong>Notas:</strong> {{ event.notes }}</p>
+      }
+
+    </div>
+    }
+  </div>
+  }
+</div>
+

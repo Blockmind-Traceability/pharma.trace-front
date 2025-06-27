@@ -1,0 +1,59 @@
+<div class="register-event-container">
+  <h2>Registrar Evento en Blockchain</h2>
+
+  <form (ngSubmit)="onSubmit()" #eventForm="ngForm">
+
+    <label>Product Serial:</label>
+    <input type="text" [(ngModel)]="eventData.productSerial" name="productSerial" required />
+
+    <label>Batch ID:</label>
+    <input type="text" [(ngModel)]="eventData.batchId" name="batchId" required />
+
+    <label>Event Type:</label>
+    <select [(ngModel)]="eventData.eventType" name="eventType" required>
+      <option value="" disabled selected>Seleccione evento</option>
+      <option value="manufacture">Manufacture</option>
+      <option value="shipment">Shipment</option>
+      <option value="reception">Reception</option>
+      <option value="sale">Sale</option>
+      <option value="return">Return</option>
+    </select>
+
+    <label>Destination:</label>
+    <input type="text" [(ngModel)]="eventData.destination" name="destination" required />
+
+    <label>Notes:</label>
+    <textarea [(ngModel)]="eventData.notes" name="notes"></textarea>
+
+    <label>Device Info:</label>
+    <input type="text" [(ngModel)]="eventData.deviceInfo" name="deviceInfo" required />
+
+    <h3>Geolocation</h3>
+    <label>IP:</label>
+    <input type="text" [(ngModel)]="eventData.geolocation.ip" name="geoIp" />
+
+    <label>Latitude:</label>
+    <input type="number" [(ngModel)]="eventData.geolocation.lat" name="geoLat" step="any" />
+
+    <label>Longitude:</label>
+    <input type="number" [(ngModel)]="eventData.geolocation.lng" name="geoLng" step="any" />
+
+    <h3>Responsible</h3>
+    <label>Name:</label>
+    <input type="text" [(ngModel)]="eventData.responsible.name" name="responsibleName" required />
+
+    <label>Role:</label>
+    <select [(ngModel)]="eventData.responsible.role" name="responsibleRole" required>
+      <option value="" disabled selected>Seleccione rol</option>
+      <option value="lab">Lab</option>
+      <option value="dist">Distributor</option>
+      <option value="pharma">Pharmacy</option>
+      <option value="admin">Admin</option>
+    </select>
+
+    <label>Document ID:</label>
+    <input type="text" [(ngModel)]="eventData.responsible.documentId" name="responsibleDocumentId" required />
+
+    <button type="submit" [disabled]="eventForm.invalid">Registrar Evento</button>
+  </form>
+</div>

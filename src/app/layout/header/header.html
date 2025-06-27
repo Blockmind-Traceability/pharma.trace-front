@@ -1,0 +1,31 @@
+<header class="header">
+  <nav class="nav">
+    <a routerLink="/" class="logo">PharmaTrace</a>
+
+    @if(isLoggedIn){
+      <ul class="nav-links" >
+        <li><a routerLink="/register-lab">Registrar Laboratorio</a></li>
+        <li><a routerLink="/upload-documents">Documentos</a></li>
+        <li><a routerLink="/manage-product-units">Productos</a></li>
+        <li><a routerLink="/manage-batches">Lotes</a></li>
+        <li><a routerLink="/register-event">Registrar Evento</a></li>
+        <li><a routerLink="/view-alerts">Alertas</a></li>
+        <li><a routerLink="/trace-product">Trazabilidad</a></li>
+      </ul>
+    }
+
+    @if(!isLoggedIn){
+      <ul class="nav-links" >
+        <li><a routerLink="/login">Login</a></li>
+        <li><a routerLink="/register">Registro</a></li>
+      </ul>
+    }
+
+    @if(isLoggedIn){
+      <div class="user-info" >
+        <span>👤 {{ username }} ({{ role }})</span>
+        <button (click)="logout()">Cerrar sesión</button>
+      </div>
+    }
+  </nav>
+</header>

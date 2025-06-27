@@ -1,0 +1,88 @@
+<div class="product-units-container">
+  <h2>Productos del Laboratorio</h2>
+
+  @if(loading){
+    <div>Cargando productos...</div>
+  }
+
+
+  @if(!loading && products.length > 0){
+    <div class="products-grid">
+      <table class="products-table">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Registro Sanitario</th>
+          <th>Presentación</th>
+          <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for(product of products; track product){
+            <tr>
+              <td>{{ product.id }}</td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.registration_number }}</td>
+              <td>{{ product.presentation }}</td>
+              <td>
+                <button (click)="onProductClick(product)">
+                  Ver Series
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      @if(selectedProduct){
+      <div class="series-panel">
+        <h3>Series de {{ selectedProduct.name }}</h3>
+
+        @if(seriesList.length > 0){
+        <ul>
+          @for(serie of seriesList; track serie){
+          <li>
+            {{ serie }}
+          </li>
+          }
+        </ul>
+        }
+
+        @if(seriesList.length === 0){
+          <p>
+            No hay series registradas para este producto.
+          </p>
+        }
+      </div>
+      }
+    </div>
+  }
+
+  @if(!loading && products.length === 0){
+    <div>
+      <p>No se encontraron productos registrados.</p>
+    </div>
+  }
+
+  <hr>
+
+  <h3>Registrar Unidad de Producto</h3>
+
+  <form (ngSubmit)="onSubmit()" #unitForm="ngForm">
+    <label>Producto:</label>
+    <select name="product" [(ngModel)]="unitData.product" required>
+      <option [ngValue]="null" disabled selected>Seleccione un producto</option>
+      @for(p of products; track p){
+        <option [value]="p.id">{{ p.name }}</option>
+      }
+
+    </select>
+
+    <label>Serie (Serial Number):</label>
+    <input type="text" name="serial_number" [(ngModel)]="unitData.serial_number" required />
+
+    <button type="submit" [disabled]="unitForm.invalid">Registrar Unidad</button>
+  </form>
+</div>
+
