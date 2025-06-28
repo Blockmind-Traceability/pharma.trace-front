@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
-import { Router } from '@angular/router';
-import {AuthService} from '../service/auth';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../service/auth';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './login.html',
-  standalone: true,
   styleUrl: './login.css'
 })
 export class Login {
@@ -20,6 +21,8 @@ export class Login {
     password: ''
   };
 
+  loginError: string | null = null;
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -27,35 +30,45 @@ export class Login {
   ) {}
 
   onSubmit() {
-    this.http.post<any>('https://pharma-traceability-backend-production.up.railway.app/api/v1/auth/login', this.loginData)
-      .subscribe({
-        next: (res) => {
-          console.log('✅ Login successful:', res);
+    this.loginError = null;
 
-          // Guardar tokens y datos en el AuthService
-          this.authService.login({
-            access: res.access,
-            refresh: res.refresh
-          });
+    this.http.post<any>(
+      'https://pharma-traceability-backend-production.up.railway.app/api/v1/auth/login',
+      this.loginData
+    ).subscribe({
+      next: (res) => {
+        console.log('✅ Login successful:', res);
 
-          // Luego, GET /auth/me
-          this.http.get<any>('https://pharma-traceability-backend-production.up.railway.app/api/v1/auth/me')
-            .subscribe({
-              next: (user) => {
-                console.log('✅ Usuario autenticado:', user);
-                this.authService.login({
-                  ...res,
-                  ...user
-                });
-                this.router.navigate(['/register-lab']);
-              }
+        this.authService.login({
+          access: res.access,
+          refresh: res.refresh
+        });
+
+        this.http.get<any>(
+          'https://pharma-traceability-backend-production.up.railway.app/api/v1/auth/me'
+        ).subscribe({
+          next: (user) => {
+            console.log('✅ Usuario autenticado:', user);
+            this.authService.login({
+              ...res,
+              ...user
             });
-        },
-        error: (err) => {
-          console.error('❌ Login error:', err);
-          alert('Credenciales incorrectas.');
+            this.router.navigate(['/register-lab']);
+          },
+          error: (err) => {
+            console.error('❌ Error obteniendo datos de usuario:', err);
+            this.loginError = 'Error al obtener datos de usuario.';
+          }
+        });
+      },
+      error: (err) => {
+        console.error('❌ Login error:', err);
+        if (err.status === 401) {
+          this.loginError = 'Credenciales incorrectas. Verifica tu correo y contraseña.';
+        } else {
+          this.loginError = 'Error al iniciar sesión. Intenta nuevamente más tarde.';
         }
-      });
+      }
+    });
   }
-
 }

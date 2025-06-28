@@ -1,33 +1,68 @@
 <div class="upload-docs-container">
-  <h2>Documentos del Laboratorio</h2>
+  <div class="upload-docs-box">
+    <h1 class="upload-docs-title">Documentos del Laboratorio</h1>
+    <p class="upload-docs-subtitle">
+      Sube y gestiona la documentación legal de tu laboratorio.
+    </p>
 
-  <form (ngSubmit)="onSubmit()" #uploadForm="ngForm">
-    <label for="file">Seleccionar archivo:</label>
-    <input type="file" id="file" (change)="onFileSelected($event)" required />
+    @if(uploadError) {
+      <div class="error-alert">
+        {{ uploadError }}
+      </div>
+    }
 
-    <button type="submit" [disabled]="!selectedFile">Subir Archivo</button>
-  </form>
+    <form (ngSubmit)="onSubmit()" #uploadForm="ngForm" novalidate>
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label for="file">Seleccionar archivo</label>
+          <input
+            type="file"
+            id="file"
+            (change)="onFileSelected($event)"
+            required
+          />
+        </div>
 
-  <hr />
+        <div class="form-group">
+          <button
+            type="submit"
+            [disabled]="!selectedFile"
+            class="btn-upload"
+          >
+            Subir Archivo
+          </button>
+        </div>
+      </div>
+    </form>
 
-  <h3>Archivos Subidos</h3>
+    <hr class="divider" />
 
-  @if (uploadedFiles.length === 0){
-    <div>
-      <p>No hay archivos registrados para este laboratorio.</p>
-    </div>
-  }
+    <h2 class="uploaded-title">Archivos Subidos</h2>
 
-  @if (uploadedFiles.length > 0){
-    <ul>
-      @for (file of uploadedFiles; track file){
-        <li>
-          📄 {{ file.name }}
-          <button (click)="downloadFile(file.file)">Descargar</button>
-          <button (click)="deleteFile(file.id)">Eliminar</button>
-        </li>
-      }
-    </ul>
-  }
+    @if(uploadedFiles.length === 0) {
+      <div class="no-files">
+        <p>No hay archivos registrados para este laboratorio.</p>
+      </div>
+    }
 
+    @if(uploadedFiles.length > 0) {
+      <div class="files-list">
+        @for(file of uploadedFiles; track file) {
+          <div class="file-item">
+            <div class="file-name">
+              📄 {{ file.name }}
+            </div>
+            <div class="file-actions">
+              <button (click)="downloadFile(file.file)" class="btn-download">
+                Descargar
+              </button>
+              <button (click)="deleteFile(file.id)" class="btn-delete">
+                Eliminar
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
 </div>

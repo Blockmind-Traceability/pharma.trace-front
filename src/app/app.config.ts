@@ -2,8 +2,8 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChang
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideHttpClient, withInterceptors} from '@angular/common/http';
+import { provideClientHydration, withEventReplay  } from '@angular/platform-browser';
+import { provideHttpClient, withInterceptors, withFetch} from '@angular/common/http';
 import {tokenInterceptor} from './auth/token.interceptor';
 
 
@@ -17,7 +17,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([
         tokenInterceptor
-      ])
+      ]),
+      withFetch()
     )
 
   ]

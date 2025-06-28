@@ -1,43 +1,181 @@
-
-@if(formVisible){
+@if(formVisible) {
   <div class="register-lab-container">
-    <h2>Registro de Laboratorio</h2>
-    <form (ngSubmit)="onSubmit()" #labForm="ngForm">
-      <label>Razón Social:</label>
-      <input type="text" name="business_name" [(ngModel)]="lab.business_name" required />
+    <div class="register-lab-box">
+      <h1 class="register-lab-title">Registro de Laboratorio</h1>
+      <p class="register-lab-subtitle">
+        Ingresa la información legal y de contacto del laboratorio.
+      </p>
 
-      <label>Nombre Comercial:</label>
-      <input type="text" name="nombre_comercial" [(ngModel)]="lab.nombre_comercial" required />
+      @if(labError) {
+        <div class="error-alert">
+          {{ labError }}
+        </div>
+      }
 
-      <label>RUC:</label>
-      <input type="text" name="ruc" [(ngModel)]="lab.ruc" required />
+      <form (ngSubmit)="onSubmit()" #labForm="ngForm" novalidate>
+        <div class="grid-container">
+          <div class="form-group">
+            <label>Razón Social</label>
+            <input
+              type="text"
+              name="business_name"
+              [(ngModel)]="lab.business_name"
+              required
+              #businessName="ngModel"
+              placeholder="Ej.: Pharma Solutions SAC"
+            />
+            @if(businessName.invalid && businessName.touched) {
+              <div class="field-error">Este campo es obligatorio.</div>
+            }
+          </div>
 
-      <label>Dirección:</label>
-      <input type="text" name="address" [(ngModel)]="lab.address" required />
+          <div class="form-group">
+            <label>Nombre Comercial</label>
+            <input
+              type="text"
+              name="nombre_comercial"
+              [(ngModel)]="lab.nombre_comercial"
+              required
+              #nombreComercial="ngModel"
+              placeholder="Ej.: Pharma"
+            />
+            @if(nombreComercial.invalid && nombreComercial.touched) {
+              <div class="field-error">Este campo es obligatorio.</div>
+            }
+          </div>
 
-      <label>Email:</label>
-      <input type="email" name="email" [(ngModel)]="lab.email" required />
+          <div class="form-group">
+            <label>RUC</label>
+            <input
+              type="text"
+              name="ruc"
+              [(ngModel)]="lab.ruc"
+              required
+              #ruc="ngModel"
+              placeholder="Ej.: 20481234567"
+            />
+            @if(ruc.invalid && ruc.touched) {
+              <div class="field-error">Este campo es obligatorio.</div>
+            }
+          </div>
 
-      <label>Teléfono:</label>
-      <input type="text" name="phone" [(ngModel)]="lab.phone" required />
+          <div class="form-group">
+            <label>Dirección</label>
+            <input
+              type="text"
+              name="address"
+              [(ngModel)]="lab.address"
+              required
+              #address="ngModel"
+              placeholder="Ej.: Av. Galos 785, Lima"
+            />
+            @if(address.invalid && address.touched) {
+              <div class="field-error">Este campo es obligatorio.</div>
+            }
+          </div>
 
-      <label>Representante Legal:</label>
-      <input type="text" name="representante_legal" [(ngModel)]="lab.representante_legal" required />
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              [(ngModel)]="lab.email"
+              required
+              #email="ngModel"
+              placeholder="contacto@pharma.com.pe"
+            />
+            @if(email.invalid && email.touched) {
+              <div class="field-error">Ingresa un correo válido.</div>
+            }
+          </div>
 
-      <label>DNI Representante:</label>
-      <input type="text" name="dni_representante" [(ngModel)]="lab.dni_representante" required />
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input
+              type="text"
+              name="phone"
+              [(ngModel)]="lab.phone"
+              required
+              #phone="ngModel"
+              placeholder="Ej.: 985652485"
+            />
+            @if(phone.invalid && phone.touched) {
+              <div class="field-error">Este campo es obligatorio.</div>
+            }
+          </div>
 
-      <label>Tipo de Productos:</label>
-      <input type="text" name="tipo_productos" [(ngModel)]="lab.tipo_productos" required />
+          <div class="form-group">
+            <label>Representante Legal</label>
+            <input
+              type="text"
+              name="representante_legal"
+              [(ngModel)]="lab.representante_legal"
+              required
+              #repLegal="ngModel"
+              placeholder="Ej.: Edwin López Huamán"
+            />
+            @if(repLegal.invalid && repLegal.touched) {
+              <div class="field-error">Este campo es obligatorio.</div>
+            }
+          </div>
 
-      <label>Mercado Objetivo:</label>
-      <select name="mercado_objetivo" [(ngModel)]="lab.mercado_objetivo" required>
-        <option value="Nacional">Nacional</option>
-        <option value="Internacional">Internacional</option>
-        <option value="Nacional e Internacional">Nacional e Internacional</option>
-      </select>
+          <div class="form-group">
+            <label>DNI Representante</label>
+            <input
+              type="text"
+              name="dni_representante"
+              [(ngModel)]="lab.dni_representante"
+              required
+              #dniRep="ngModel"
+              placeholder="Ej.: 76489552"
+            />
+            @if(dniRep.invalid && dniRep.touched) {
+              <div class="field-error">Este campo es obligatorio.</div>
+            }
+          </div>
 
-      <button type="submit" [disabled]="labForm.invalid">Registrar Laboratorio</button>
-    </form>
+          <div class="form-group full-width">
+            <label>Tipo de Productos</label>
+            <input
+              type="text"
+              name="tipo_productos"
+              [(ngModel)]="lab.tipo_productos"
+              required
+              #tipoProductos="ngModel"
+              placeholder="Ej.: Medicamentos y productos sanitarios"
+            />
+            @if(tipoProductos.invalid && tipoProductos.touched) {
+              <div class="field-error">Este campo es obligatorio.</div>
+            }
+          </div>
+
+          <div class="form-group full-width">
+            <label>Mercado Objetivo</label>
+            <select
+              name="mercado_objetivo"
+              [(ngModel)]="lab.mercado_objetivo"
+              required
+              #mercadoObj="ngModel"
+            >
+              <option value="" disabled selected>Seleccione una opción</option>
+              @for(item of ['Nacional', 'Internacional', 'Nacional e Internacional']; track item) {
+                <option [value]="item">{{ item }}</option>
+              }
+            </select>
+            @if(mercadoObj.invalid && mercadoObj.touched) {
+              <div class="field-error">Selecciona una opción.</div>
+            }
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="labForm.invalid"
+          class="btn-register-lab"
+        >
+          Registrar Laboratorio
+        </button>
+      </form>
+    </div>
   </div>
 }

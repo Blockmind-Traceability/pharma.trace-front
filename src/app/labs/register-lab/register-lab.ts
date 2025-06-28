@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-lab',
+  standalone: true,
   imports: [
     FormsModule
   ],
   templateUrl: './register-lab.html',
-  standalone: true,
   styleUrl: './register-lab.css'
 })
 export class RegisterLab implements OnInit {
@@ -31,6 +31,7 @@ export class RegisterLab implements OnInit {
   };
 
   formVisible = false;
+  labError: string | null = null;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -44,12 +45,10 @@ export class RegisterLab implements OnInit {
         next: (res) => {
           console.log('✅ Laboratorio ya existe:', res);
 
-          // Guardar lab_id en sessionStorage
           if (typeof window !== 'undefined') {
             sessionStorage.setItem('lab_id', res.id.toString());
           }
 
-          // Redirigir a la vista de trazabilidad
           this.router.navigate(['/trace-product']);
         },
         error: (err) => {
@@ -60,6 +59,8 @@ export class RegisterLab implements OnInit {
   }
 
   onSubmit(): void {
+    this.labError = null;
+
     const userId = typeof window !== 'undefined'
       ? sessionStorage.getItem('user_id')
       : null;
@@ -78,12 +79,15 @@ export class RegisterLab implements OnInit {
             sessionStorage.setItem('lab_id', res.id.toString());
           }
 
-          alert('Laboratorio registrado correctamente.');
           this.router.navigate(['/trace-product']);
         },
         error: (err) => {
           console.error('❌ Error al registrar laboratorio:', err);
-          alert('Error al registrar laboratorio.');
+          if (err.status === 400) {
+            this.labError = 'Datos incompletos o inválidos. Verifica la información ingresada.';
+          } else {
+            this.labError = 'Error inesperado al registrar el laboratorio. Intenta nuevamente más tarde.';
+          }
         }
       });
   }
