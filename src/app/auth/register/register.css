@@ -1,33 +1,122 @@
+/* Overall container */
 .register-container {
-  width: 300px;
-  margin: 50px auto;
-  background: #f8f8f8;
+  min-height: 100vh;
+  background-color: #F4F7FA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
-  border-radius: 8px;
 }
 
-.register-container h2 {
+/* Box styling */
+.register-box {
+  background-color: #FFFFFF;
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 450px;
+  width: 100%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Header styling */
+.register-title {
+  color: #005A8C;
+  font-size: 2em;
   text-align: center;
+  margin-bottom: 10px;
 }
 
-.register-container input,
-.register-container select {
-  width: 100%;
-  margin: 10px 0;
-  padding: 8px;
-  box-sizing: border-box;
+.register-subtitle {
+  text-align: center;
+  color: #5E6E80;
+  font-size: 0.95em;
+  margin-bottom: 30px;
+  line-height: 1.4;
 }
 
-.register-container button {
+/* Form styling */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #0B1215;
+}
+
+.form-group input,
+.form-group select {
   width: 100%;
-  padding: 10px;
-  background: #388e3c;
-  color: white;
+  padding: 12px;
+  border: 1px solid #E0E6ED;
+  border-radius: 5px;
+  font-size: 1em;
+  color: #0B1215;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #1B9AAA;
+  outline: none;
+}
+
+/* Field error */
+.field-error {
+  color: #D0021B;
+  font-size: 0.85em;
+  margin-top: 5px;
+}
+
+/* Button */
+.btn-register {
+  width: 100%;
+  background-color: #005A8C;
+  color: #FFFFFF;
+  font-weight: 600;
+  padding: 12px;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 
-.register-container button:disabled {
-  background: #a7a7a7;
+.btn-register:hover {
+  background-color: #1B9AAA;
 }
 
+.btn-register:disabled {
+  background-color: #A7A7A7;
+  cursor: not-allowed;
+}
+
+/* Error alert */
+.error-alert {
+  background-color: #D0021B;
+  color: #FFFFFF;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+/* Footer link */
+.register-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.register-footer a {
+  color: #1B9AAA;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.register-footer a:hover {
+  color: #005A8C;
+}

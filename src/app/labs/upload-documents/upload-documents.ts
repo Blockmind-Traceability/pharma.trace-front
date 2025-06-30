@@ -1,32 +1,42 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID } from '@angular/core';
 
 @Component({
   selector: 'app-upload-documents',
+  standalone: true,
   imports: [
     FormsModule
   ],
   templateUrl: './upload-documents.html',
-  standalone: true,
   styleUrl: './upload-documents.css'
 })
 export class UploadDocuments implements OnInit {
   labId: string | null = null;
   selectedFile: File | null = null;
   uploadedFiles: any[] = [];
+  uploadError: string | null = null;
   baseUrl = 'https://pharma-traceability-backend-production.up.railway.app';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit(): void {
-    this.labId = sessionStorage.getItem('lab_id');
-    if (this.labId) {
-      this.loadUploadedFiles();
+    if (isPlatformBrowser(this.platformId)) {
+      this.labId = sessionStorage.getItem('lab_id');
+      if (this.labId) {
+        this.loadUploadedFiles();
+      }
     }
   }
 
   loadUploadedFiles(): void {
+    this.uploadError = null;
+
     this.http.get<any[]>(`${this.baseUrl}/api/v1/laboratories-files/${this.labId}/files/list/`)
       .subscribe({
         next: (files) => {
@@ -35,7 +45,7 @@ export class UploadDocuments implements OnInit {
         },
         error: (err) => {
           console.error('❌ Error al cargar archivos:', err);
-          alert('Error al cargar archivos del laboratorio.');
+          this.uploadError = 'Error al cargar archivos del laboratorio.';
         }
       });
   }
@@ -46,8 +56,10 @@ export class UploadDocuments implements OnInit {
   }
 
   onSubmit(): void {
+    this.uploadError = null;
+
     if (!this.selectedFile) {
-      alert('Debes seleccionar un archivo.');
+      this.uploadError = 'Debes seleccionar un archivo antes de subir.';
       return;
     }
 
@@ -61,13 +73,12 @@ export class UploadDocuments implements OnInit {
       .subscribe({
         next: (res) => {
           console.log('✅ Archivo subido:', res);
-          alert('Archivo subido correctamente!');
           this.selectedFile = null;
-          this.loadUploadedFiles(); // Recargar la lista
+          this.loadUploadedFiles();
         },
         error: (err) => {
           console.error('❌ Error al subir archivo:', err);
-          alert('Error al subir archivo.');
+          this.uploadError = 'Error al subir archivo. Intenta nuevamente.';
         }
       });
   }
@@ -78,6 +89,8 @@ export class UploadDocuments implements OnInit {
   }
 
   deleteFile(fileId: number): void {
+    this.uploadError = null;
+
     if (!confirm('¿Estás seguro de eliminar este archivo?')) {
       return;
     }
@@ -88,12 +101,11 @@ export class UploadDocuments implements OnInit {
       .subscribe({
         next: (res) => {
           console.log('✅ Archivo eliminado:', res);
-          alert('Archivo eliminado correctamente!');
           this.loadUploadedFiles();
         },
         error: (err) => {
           console.error('❌ Error al eliminar archivo:', err);
-          alert('Error al eliminar archivo.');
+          this.uploadError = 'Error al eliminar archivo. Intenta nuevamente.';
         }
       });
   }

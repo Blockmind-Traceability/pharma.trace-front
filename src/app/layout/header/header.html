@@ -3,7 +3,7 @@
     <a routerLink="/" class="logo">PharmaTrace</a>
 
     @if(isLoggedIn){
-      <ul class="nav-links" >
+      <ul class="nav-links">
         <li><a routerLink="/register-lab">Registrar Laboratorio</a></li>
         <li><a routerLink="/upload-documents">Documentos</a></li>
         <li><a routerLink="/manage-product-units">Productos</a></li>
@@ -15,16 +15,16 @@
     }
 
     @if(!isLoggedIn){
-      <ul class="nav-links" >
+      <ul class="nav-links">
         <li><a routerLink="/login">Login</a></li>
         <li><a routerLink="/register">Registro</a></li>
       </ul>
     }
 
     @if(isLoggedIn){
-      <div class="user-info" >
-        <span>👤 {{ username }} ({{ role }})</span>
-        <button (click)="logout()">Cerrar sesión</button>
+      <div class="user-info">
+        <span class="user-text">👤 {{ username }} ({{ role }})</span>
+        <button class="logout-btn" (click)="logout()">Cerrar sesión</button>
       </div>
     }
   </nav>

@@ -1,9 +1,12 @@
+/* Header background */
 .header {
-  background-color: #1976d2;
-  color: #fff;
-  padding: 10px 20px;
+  background-color: #005A8C;
+  color: #FFFFFF;
+  padding: 10px 30px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
+/* Nav container */
 .nav {
   display: flex;
   align-items: center;
@@ -11,45 +14,70 @@
   flex-wrap: wrap;
 }
 
-.nav .logo {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #fff;
+/* Logo styles */
+.logo {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: #FFFFFF;
   text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
 }
 
+.logo:hover {
+  color: #1B9AAA;
+}
+
+/* Navigation links */
 .nav-links {
   display: flex;
-  gap: 15px;
+  gap: 20px;
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 .nav-links li a {
-  color: #fff;
+  color: #FFFFFF;
   text-decoration: none;
   font-weight: 500;
+  font-size: 1em;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav-links li a:hover {
-  text-decoration: underline;
+  background-color: #1B9AAA;
+  color: #FFFFFF;
 }
 
+/* User info container */
 .user-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
+  margin-left: 20px;
 }
 
-.user-info button {
-  background-color: #d32f2f;
-  color: #fff;
+.user-text {
+  font-size: 0.95em;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+/* Logout button */
+.logout-btn {
+  background-color: #D0021B;
+  color: #FFFFFF;
   border: none;
-  padding: 6px 12px;
+  padding: 6px 14px;
+  font-weight: 500;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.user-info button:hover {
-  background-color: #9a0007;
+.logout-btn:hover {
+  background-color: #9A0007;
 }
