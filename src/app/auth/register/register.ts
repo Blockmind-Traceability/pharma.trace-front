@@ -32,7 +32,9 @@ export class Register {
     this.registerError = null; // Limpiar errores previos
 
     this.http.post<any>(
-      'https://pharma-traceability-backend-production.up.railway.app/api/v1/auth/register',
+      //'https://pharma-traceability-backend-production.up.railway.app/api/v1/auth/register',
+      //'http://127.0.0.1:8000/api/v1/auth/register',
+      'https://pharma-trace-backend-bcgsb5ahg6grgcfs.canadacentral-01.azurewebsites.net/api/v1/auth/register',
       this.registerData
     ).subscribe({
       next: (res) => {

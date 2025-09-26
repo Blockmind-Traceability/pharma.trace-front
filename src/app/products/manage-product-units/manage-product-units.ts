@@ -12,7 +12,9 @@ import {FormsModule} from '@angular/forms';
   styleUrl: './manage-product-units.css'
 })
 export class ManageProductUnits implements OnInit {
-  baseUrl = 'https://pharma-traceability-backend-production.up.railway.app';
+  //baseUrl = 'https://pharma-traceability-backend-production.up.railway.app';
+  //baseUrl = 'http://127.0.0.1:8000';
+  baseUrl = 'https://pharma-trace-backend-bcgsb5ahg6grgcfs.canadacentral-01.azurewebsites.net';
 
   products: any[] = [];
   loading = false;
@@ -138,9 +140,6 @@ export class ManageProductUnits implements OnInit {
       .subscribe({
         next: (res) => {
           console.log('✅ Unidad registrada:', res);
-          if (typeof window !== 'undefined') {
-            alert('Unidad registrada correctamente.');
-          }
           this.unitData.serial_number = '';
           this.unitData.product = null;
 

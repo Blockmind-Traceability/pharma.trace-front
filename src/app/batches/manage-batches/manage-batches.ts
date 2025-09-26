@@ -12,7 +12,9 @@ import {FormsModule} from '@angular/forms';
   styleUrl: './manage-batches.css'
 })
 export class ManageBatches implements OnInit {
-  baseUrl = 'https://pharma-traceability-backend-production.up.railway.app';
+  //baseUrl = 'https://pharma-traceability-backend-production.up.railway.app';
+  //baseUrl = 'http://127.0.0.1:8000';
+  baseUrl = 'https://pharma-trace-backend-bcgsb5ahg6grgcfs.canadacentral-01.azurewebsites.net';
 
   batches: any[] = [];
   selectedBatch: any = null;
@@ -75,43 +77,53 @@ export class ManageBatches implements OnInit {
     this.newBatch.series.splice(index, 1);
   }
 
-  createBatch(): void {
-    // Filtrar series vacías
-    const filteredSeries = this.newBatch.series.filter(s => s.trim() !== '');
 
-    if (!this.newBatch.origin || !this.newBatch.destination || filteredSeries.length === 0) {
-      if (typeof window !== 'undefined') {
-        alert('Completa todos los campos del lote.');
-      }
+  submitting = false;
+
+  createBatch(): void {
+    if (this.submitting) return; // anti-doble click
+    // Filtrar series vacías
+    const filteredSeries = this.newBatch.series.map(s => s.trim()).filter(Boolean);
+
+    if (!this.newBatch.origin.trim() || !this.newBatch.destination.trim() || filteredSeries.length === 0) {
+      alert('Completa todos los campos del lote.');
       return;
     }
 
     const payload = {
-      origin: this.newBatch.origin,
-      destination: this.newBatch.destination,
+      origin: this.newBatch.origin.trim(),
+      destination: this.newBatch.destination.trim(),
       series: filteredSeries
     };
 
-    this.http.post<any>(`${this.baseUrl}/api/v1/batches/`, payload)
+    this.submitting = true;
+
+    this.http.post<any>(`${this.baseUrl}/api/v1/batches/`, payload, { observe: 'response' })
       .subscribe({
         next: (res) => {
-          console.log('✅ Lote creado:', res);
-          if (typeof window !== 'undefined') {
-            alert('Lote creado exitosamente.');
-          }
-          this.newBatch = {
-            origin: '',
-            destination: '',
-            series: ['']
-          };
+          console.log('✅ Lote creado:', res.body ?? res);
+          alert('Lote creado exitosamente.');
+          // Limpia el formulario
+          this.newBatch = { origin: '', destination: '', series: [''] };
           this.loadBatches();
+          this.submitting = false;
         },
         error: (err) => {
           console.error('❌ Error al crear lote:', err);
-          if (typeof window !== 'undefined') {
-            alert('Error al crear el lote.');
-          }
+          // Mostrar detalle si existe
+          const msg = typeof err?.error === 'string'
+            ? err.error
+            : JSON.stringify(err?.error ?? {}, null, 2);
+          alert(`Error al crear el lote (HTTP ${err.status}). Detalle:\n${msg}`);
+
+          // A veces el servidor guarda y luego falla; verifica igual:
+          this.loadBatches();
+          this.submitting = false;
         }
       });
   }
+
+
+
+
 }

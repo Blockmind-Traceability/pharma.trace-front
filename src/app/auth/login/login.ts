@@ -33,7 +33,12 @@ export class Login {
     this.loginError = null;
 
     this.http.post<any>(
-      'https://pharma-traceability-backend-production.up.railway.app/api/v1/auth/login',
+      //'https://pharma-traceability-backend-production.up.railway.app/api/v1/auth/login',
+      //'http://127.0.0.1:8000/api/v1/auth/login',
+      'https://pharma-trace-backend-bcgsb5ahg6grgcfs.canadacentral-01.azurewebsites.net/api/v1/auth/login',
+
+
+
       this.loginData
     ).subscribe({
       next: (res) => {
@@ -45,7 +50,10 @@ export class Login {
         });
 
         this.http.get<any>(
-          'https://pharma-traceability-backend-production.up.railway.app/api/v1/auth/me'
+          //'https://pharma-traceability-backend-production.up.railway.app/api/v1/auth/me'
+          //'http://127.0.0.1:8000/api/v1/auth/me'
+        'https://pharma-trace-backend-bcgsb5ahg6grgcfs.canadacentral-01.azurewebsites.net/api/v1/auth/me',
+
         ).subscribe({
           next: (user) => {
             console.log('✅ Usuario autenticado:', user);

@@ -13,7 +13,9 @@ import { Router } from '@angular/router';
   styleUrl: './register-lab.css'
 })
 export class RegisterLab implements OnInit {
-  baseUrl = 'https://pharma-traceability-backend-production.up.railway.app';
+  //baseUrl = 'https://pharma-traceability-backend-production.up.railway.app';
+  //baseUrl = 'http://127.0.0.1:8000';
+  baseUrl = 'https://pharma-trace-backend-bcgsb5ahg6grgcfs.canadacentral-01.azurewebsites.net';
 
   lab = {
     business_name: '',

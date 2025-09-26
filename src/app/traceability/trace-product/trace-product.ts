@@ -13,7 +13,9 @@ import {FormsModule} from '@angular/forms';
 })
 export class TraceProduct {
 
-  baseUrl = 'https://pharma-traceability-backend-production.up.railway.app';
+  //baseUrl = 'https://pharma-traceability-backend-production.up.railway.app';
+  //baseUrl = 'http://127.0.0.1:8000';
+  baseUrl = 'https://pharma-trace-backend-bcgsb5ahg6grgcfs.canadacentral-01.azurewebsites.net';
 
   serialInput = '';
   traceData: any[] = [];

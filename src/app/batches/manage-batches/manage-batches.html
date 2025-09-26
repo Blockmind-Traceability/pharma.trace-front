@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-        @for(batch of batches; track batch){
+          @for (batch of batches; track batch.id) {
         <tr>
           <td>{{ batch.id }}</td>
           <td>{{ batch.origin }}</td>
@@ -37,7 +37,7 @@
         <h3>Series del Lote #{{ selectedBatch.id }}</h3>
         @if(selectedBatch.series.length > 0){
           <ul>
-            @for(serie of selectedBatch.series; track serie){
+            @for (serie of selectedBatch.series; track (serie.id ?? serie.serie_code)) {
               <li>
                 <strong>{{ serie.serie_code }}</strong>
                 <span> (Producto: {{ serie.product.name }})</span>
@@ -73,7 +73,7 @@
 
     <label>Series (Códigos de Serie):</label>
     <div class="series-inputs">
-      @for(s of newBatch.series; track s;let i = $index){
+      @for (s of newBatch.series; track $index; let i = $index) {
       <div>
         <input type="text" [(ngModel)]="newBatch.series[i]" [name]="'serie' + i" required />
         @if(newBatch.series.length > 1){
@@ -85,6 +85,8 @@
       <button type="button" (click)="addSerieField()">+ Agregar otra serie</button>
     </div>
 
-    <button type="submit" [disabled]="batchForm.invalid">Crear Lote</button>
+    <button type="submit" [disabled]="batchForm.invalid || submitting">
+      {{ submitting ? 'Creando...' : 'Crear Lote' }}
+    </button>
   </form>
 </div>
