@@ -62,4 +62,5 @@ jobs:
           app-name: 'pharma-trace'
           slot-name: 'Production'
           package: .
-          
+
+
