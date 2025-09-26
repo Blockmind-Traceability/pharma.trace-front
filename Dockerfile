@@ -1,5 +1,5 @@
 # ---------- Stage 1: Build ----------
-FROM node:22 AS build
+FROM node:20 AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -13,7 +13,7 @@ COPY . .
 RUN npm run build
 
 # ---------- Stage 2: Runtime ----------
-FROM node:22-slim
+FROM node:20-slim
 
 WORKDIR /app
 ENV NODE_ENV=production
