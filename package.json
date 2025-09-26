@@ -1,13 +1,16 @@
 {
   "name": "pharma-trace",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
     "build": "ng build",
+    "build:ssr": "ng build",
+    "serve:ssr": "node dist/pharma-trace/server/server.mjs",
+    "start": "npm run serve:ssr",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:pharma-trace": "node dist/pharma-trace/server/server.mjs"
+    "start:dev": "ng serve"
   },
   "prettier": {
     "overrides": [
@@ -19,7 +22,6 @@
       }
     ]
   },
-  "private": true,
   "dependencies": {
     "@angular/cdk": "^20.0.4",
     "@angular/common": "^20.0.0",
