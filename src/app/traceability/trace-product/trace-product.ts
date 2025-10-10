@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-trace-product',
@@ -41,7 +41,25 @@ export class TraceProduct {
       .subscribe({
         next: (res) => {
           console.log('✅ Trazabilidad obtenida:', res);
-          this.traceData = res.trace;
+
+          let processedTrace = res.trace || [];
+
+          // --- INICIO DE LA MEJORA ---
+          // Procesamos los datos para reemplazar "Origen desconocido"
+          if (processedTrace.length > 1) {
+            for (let i = 1; i < processedTrace.length; i++) {
+              const currentEvent = processedTrace[i];
+              const previousEvent = processedTrace[i - 1];
+
+              // Si el origen actual es desconocido, usa el destino anterior
+              if (currentEvent.origin === 'Origen desconocido' && previousEvent.destination) {
+                currentEvent.origin = previousEvent.destination;
+              }
+            }
+          }
+          // --- FIN DE LA MEJORA ---
+
+          this.traceData = processedTrace;
           this.loading = false;
 
           if (this.traceData.length === 0) {
