@@ -1,42 +1,53 @@
-<div class="traceability-container">
-  <h2>Trazabilidad del Producto</h2>
+<div class="trace-container">
+  <div class="trace-header">
+    <h2>Trazabilidad del Producto</h2>
+    <p>Ingresa el número de serie para rastrear su recorrido.</p>
+  </div>
 
   <form (ngSubmit)="onSearch()" #traceForm="ngForm">
-    <label>Serie del Producto:</label>
-    <input type="text" [(ngModel)]="serialInput" name="serialInput" required />
-    <button type="submit" [disabled]="traceForm.invalid || loading">Buscar Trazabilidad</button>
+    <div class="input-group">
+      <input type="text" [(ngModel)]="serialInput" name="serialInput" placeholder="Ej: ABC-12345" required />
+      <button type="submit" [disabled]="traceForm.invalid || loading">
+        <i class="fa-solid fa-magnifying-glass"></i> Buscar
+      </button>
+    </div>
   </form>
 
   @if(loading){
-  <div>
-    Cargando trazabilidad...
-  </div>
+    <div class="status-message">
+      <div class="loader"></div>
+      <p>Buscando trazabilidad...</p>
+    </div>
   }
 
   @if(notFound && !loading){
-  <div>
-    <p>No se encontró trazabilidad para esta serie.</p>
-  </div>
+    <div class="status-message not-found">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <p>No se encontró trazabilidad para la serie ingresada.</p>
+    </div>
   }
 
   @if(traceData.length > 0 && !loading){
-  <div class="timeline">
-    @for(event of traceData; track event){
-    <div class="timeline-item">
-      <h3>{{ event.eventType }}</h3>
-      <p class="arrow">
-        {{ event.origin }} ➡ {{ event.destination }}
-      </p>
-      <p><strong>Responsable:</strong> {{ event.responsible.name }} ({{ event.responsible.role }})</p>
-      <p><strong>Ubicación actual:</strong> {{ event.currentLocation }}</p>
-      <p><strong>Fecha:</strong> {{ event.eventDate }}</p>
-      @if(event.notes){
-        <p><strong>Notas:</strong> {{ event.notes }}</p>
+    <div class="timeline">
+      @for(event of traceData; track event.eventDate){
+        <div class="timeline-item">
+          <div class="timeline-icon">
+            <i [ngClass]="getIconForEventType(event.eventType)"></i>
+          </div>
+          <div class="timeline-content">
+            <span class="event-type">{{ event.eventType }}</span>
+            <h3>{{ event.origin }} <i class="fa-solid fa-arrow-right-long"></i> {{ event.destination }}</h3>
+            <div class="event-details">
+              <p><i class="fa-solid fa-user"></i> <strong>Responsable:</strong> {{ event.responsible.name }} ({{ event.responsible.role }})</p>
+              <p><i class="fa-solid fa-location-dot"></i> <strong>Ubicación:</strong> {{ event.currentLocation }}</p>
+              @if(event.notes){
+                <p class="notes"><i class="fa-solid fa-pencil"></i> <strong>Notas:</strong> {{ event.notes }}</p>
+              }
+            </div>
+            <div class="event-date">{{ event.eventDate | date:'fullDate' }} a las {{ event.eventDate | date:'shortTime' }}</div>
+          </div>
+        </div>
       }
-
     </div>
-    }
-  </div>
   }
 </div>
-

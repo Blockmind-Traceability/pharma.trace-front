@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-trace-product',
   imports: [
-    FormsModule
+    FormsModule,
+    CommonModule,
   ],
   templateUrl: './trace-product.html',
   standalone: true,
@@ -73,4 +75,31 @@ export class TraceProduct {
         }
       });
   }
+
+  // --- INICIO DE LA MEJORA DE DISEÑO (NUEVA FUNCIÓN) ---
+  getIconForEventType(eventType: string): string {
+    if (!eventType) return 'fa-solid fa-circle-question';
+
+    const type = eventType.toLowerCase();
+
+    if (type.includes('reception') || type.includes('recepción')) {
+      return 'fa-solid fa-box-archive';
+    }
+    if (type.includes('dispatch') || type.includes('despacho')) {
+      return 'fa-solid fa-truck-fast';
+    }
+    if (type.includes('storage') || type.includes('almacenamiento')) {
+      return 'fa-solid fa-warehouse';
+    }
+    if (type.includes('delivery') || type.includes('entrega')) {
+      return 'fa-solid fa-circle-check';
+    }
+    // Puedes añadir más casos según tus tipos de eventos
+    return 'fa-solid fa-circle-nodes'; // Icono por defecto
+  }
+  // --- FIN DE LA MEJORA DE DISEÑO ---
+
 }
+
+
+
